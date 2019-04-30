@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    },
+    "lint-staged": {
+        "*.{js,css,json,md,php}": [
+            "prettier --write",
+            "git add"
+        ]
+    },
+    "devDependencies": {
+        "@prettier/plugin-php": "^0.10.2",
+        "husky": "^2.1.0",
+        "lint-staged": "^8.1.5",
+        "prettier": "^1.17.0"
+    }
+}

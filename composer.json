@@ -1,0 +1,26 @@
+{
+    "name": "cmizzi/playstation-api",
+    "version": "0.0.1",
+    "description": "Wrapper around the Playstation API (PSN)",
+    "keywords": [
+        "playstation",
+        "psn"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": "^7.1.3",
+        "guzzlehttp/guzzle": "^6.3"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "Playstation\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
