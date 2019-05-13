@@ -100,6 +100,32 @@ class Game extends Fluent
 	}
 
 	/**
+	 * @return Trophy[]
+	 */
+	public function trophies(): array
+	{
+		$endpoint = vsprintf('/trophyTitles/%s/trophyGroups/all/trophies', [
+			$this->id()
+		]);
+
+		$groups = [];
+		$response = $this->client->get(Trophy::TROPHY_ENDPOINT . $endpoint, [
+			'fields' =>
+				'@default,trophyRare,trophyEarnedRate,hasTrophyGroups,trophySmallIconUrl',
+			'iconSize' => 'm',
+			'npLanguage' => 'en',
+			'visibleType' => 1,
+			'comparedUser' => $this->getComparedUser()
+		]);
+
+		foreach ($response['trophies'] as $group) {
+			array_push($groups, new Trophy($this->client, $group, $this));
+		}
+
+		return $groups;
+	}
+
+	/**
 	 * @return ?User
 	 */
 	public function user(): ?User

@@ -13,7 +13,7 @@ class Trophy extends Fluent
 	/** @var Wrapper $client */
 	private $client;
 
-	/** @var TrophyGroup $trophyGroup */
+	/** @var TrophyGroup|Game $trophyGroup */
 	private $trophyGroup;
 
 	/**
@@ -24,7 +24,7 @@ class Trophy extends Fluent
 	public function __construct(
 		Wrapper $client,
 		array $attributes = [],
-		TrophyGroup $trophyGroup
+		$trophyGroup
 	) {
 		$this->client = $client;
 		$this->trophyGroup = $trophyGroup;
@@ -33,10 +33,10 @@ class Trophy extends Fluent
 	}
 
 	/**
-	 * @return string
+	 * @return int
 	 * @SuppressWarnings(PHPMD.ShortMethodName)
 	 */
-	public function id(): string
+	public function id(): int
 	{
 		return $this->trophyId;
 	}
@@ -94,7 +94,7 @@ class Trophy extends Fluent
 	 */
 	public function earnedRate(): float
 	{
-		return floatval($this->trpohyEarnedRate());
+		return floatval($this->trophyEarnedRate());
 	}
 
 	/**
@@ -110,13 +110,17 @@ class Trophy extends Fluent
 	 */
 	public function game(): Game
 	{
+		if ($this->trophyGroup() instanceof Game) {
+			return $this->trophyGroup();
+		}
+
 		return $this->trophyGroup()->game();
 	}
 
 	/**
-	 * @return TrophyGroup
+	 * @return TrophyGroup|Game
 	 */
-	public function trophyGroup(): TrophyGroup
+	public function trophyGroup()
 	{
 		return $this->trophyGroup;
 	}
